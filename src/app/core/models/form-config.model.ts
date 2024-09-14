@@ -1,6 +1,7 @@
 import { ValidatorFn } from '@angular/forms';
 
 export interface PageConfig {
+    title: string;
     buttons: string;
     sections: string[];
     additionalSections: string[];
@@ -8,7 +9,8 @@ export interface PageConfig {
 }
 
 export interface SectionConfig {
-    sectionId: string;
+    key: string;
+    title: string;
     typeCode: string;
     width: string;
     controls: ControlConfig[];

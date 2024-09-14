@@ -1,10 +1,11 @@
 {
     "buttons": "SAVE",
-    "sections": ["customer-detail"],
+    "sections": ["customer-detail", "customer-address"],
     "additionalSections": [],
     "sectionRepository": [
         {
-            "sectionId": "customer-detail",
+            "key": "detail",
+            "title": "Customer Detail",
             "typeCode": "SECTION_CARD_WITH_HEADER",
             "width": "FULL",
             "controls": [
@@ -38,6 +39,49 @@
                     "key": "about",
                     "label": "Describe Yourself",
                     "typeCode": "TEXT",
+                    "maxLength": 100,
+                    "width": "full-width",
+                    "displayOrder": "3"
+                }
+            ]
+        },
+        {
+            "key": "address",
+            "title": "Customer Detail",
+            "typeCode": "SECTION_CARD_WITH_HEADER",
+            "width": "FULL",
+            "controls": [
+                {
+                    "key": "addressLineOne",
+                    "label": "Address Line 1",
+                    "typeCode": "TEXT",
+                    "minLength": 10,
+                    "maxLength": 50,
+                    "width": "one-third",
+                    "displayOrder": "1"
+                },
+                {
+                    "key": "addressLineTwo",
+                    "label": "Address Line 2",
+                    "typeCode": "TEXT",
+                    "minLength": 10,
+                    "maxLength": 50,
+                    "width": "one-third",
+                    "displayOrder": "2"
+                },
+                {
+                    "key": "cityCode",
+                    "label": "City",
+                    "typeCode": "SELECT",
+                    "categoryCode": "CITY_CODE",
+                    "width": "one-third",
+                    "displayOrder": "3"
+                },
+                {
+                    "key": "countryCode",
+                    "label": "Country",
+                    "typeCode": "SELECT",
+                    "categoryCode": "COUNTRY_CODE",
                     "maxLength": 100,
                     "width": "full-width",
                     "displayOrder": "3"

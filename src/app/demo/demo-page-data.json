@@ -1,0 +1,4 @@
+{
+    "details": { "firstName": "Srinivas", "lastName": "P", "gender": "1974-01-01", "about": "Hello there... This is cool!" },
+    "address": { "addressLineOne": "Aparna Apartments", "addressLineTwo": "Nallagandla", "cityCode": "LA", "countryCode": "US" }
+}

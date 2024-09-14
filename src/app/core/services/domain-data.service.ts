@@ -13,6 +13,14 @@ export class DomainDataService {
             { code: 'LT2', displayText: 'Home Loan' },
             { code: 'LT3', displayText: 'Auto Loan' },
         ],
+        COUNTRY_CODE: [
+            { code: 'IN', displayText: 'India' },
+            { code: 'BR', displayText: 'Brazil' },
+            { code: 'RS', displayText: 'Russia' },
+            { code: 'CH', displayText: 'China' },
+            { code: 'SA', displayText: 'South Africa' },
+            { code: 'US', displayText: 'United States' },
+        ],
         CITY_CODE: [
             { code: 'NY', displayText: 'New York' },
             { code: 'LA', displayText: 'Los Angeles' },

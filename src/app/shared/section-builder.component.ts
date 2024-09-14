@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { SectionConfig } from '../core/models';
 import { ControlBuilderComponent } from './control-builder.component';
@@ -11,8 +11,8 @@ import { ControlBuilderComponent } from './control-builder.component';
     template: `
         <div [ngClass]="sectionConfig.width" class="section-wrapper">
             <fieldset *ngIf="sectionConfig.typeCode === 'SECTION_CARD_WITH_HEADER'">
-                <legend>{{ sectionConfig.sectionId.replace('-', ' ').toUpperCase() }}</legend>
-                <app-control-builder [controlConfigs]="sectionConfig.controls" [formGroup]="formGroup"></app-control-builder>
+                <legend>{{ sectionConfig.title }}</legend>
+                <app-control-builder [controlConfigs]="sectionConfig.controls" [formGroup]="sectionGroup"></app-control-builder>
             </fieldset>
         </div>
     `,
@@ -21,8 +21,15 @@ import { ControlBuilderComponent } from './control-builder.component';
 export class SectionBuilderComponent implements OnInit {
     @Input() sectionConfig!: SectionConfig;
     @Input() formGroup!: FormGroup;
+    sectionGroup!: FormGroup;
+
+    constructor(private fb: FormBuilder) {}
 
     ngOnInit(): void {
-        // Additional initialization can be added here if necessary
+        // Create a child FormGroup for this section
+        this.sectionGroup = this.fb.group({});
+
+        // Add the new FormGroup to the passed in parent FormGroup
+        this.formGroup.addControl(this.sectionConfig.key, this.sectionGroup);
     }
 }
