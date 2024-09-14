@@ -1,2 +1,2 @@
 export * from './common.model';
-export * from './control.model';
+export * from './form-config.model';

@@ -2,7 +2,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FlexLayoutModule } from '@angular/flex-layout'; // Import FlexLayoutModule
-import { DemoFormComponent } from './demo/demo-page';
+import { DemoPageOneComponent } from './demo/demo-page-one';
 
 @NgModule({
     declarations: [],

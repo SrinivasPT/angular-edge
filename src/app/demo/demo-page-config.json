@@ -1,0 +1,48 @@
+{
+    "buttons": "SAVE",
+    "sections": ["customer-detail"],
+    "additionalSections": [],
+    "sectionRepository": [
+        {
+            "sectionId": "customer-detail",
+            "typeCode": "SECTION_CARD_WITH_HEADER",
+            "width": "FULL",
+            "controls": [
+                {
+                    "key": "firstName",
+                    "label": "First Name",
+                    "typeCode": "TEXT",
+                    "minLength": 10,
+                    "maxLength": 50,
+                    "width": "one-third",
+                    "displayOrder": "1"
+                },
+                {
+                    "key": "lastName",
+                    "label": "Last Name",
+                    "typeCode": "TEXT",
+                    "minLength": 10,
+                    "maxLength": 50,
+                    "width": "one-third",
+                    "displayOrder": "2"
+                },
+                {
+                    "key": "gender",
+                    "label": "Gender",
+                    "typeCode": "SELECT",
+                    "categoryCode": "GENDER",
+                    "width": "one-third",
+                    "displayOrder": "3"
+                },
+                {
+                    "key": "about",
+                    "label": "Describe Yourself",
+                    "typeCode": "TEXT",
+                    "maxLength": 100,
+                    "width": "full-width",
+                    "displayOrder": "3"
+                }
+            ]
+        }
+    ]
+}

@@ -10,7 +10,7 @@ import { ControlService } from '../core/services';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 @Component({
-    selector: 'app-demo-form',
+    selector: 'app-demo-page-one',
     standalone: true,
     imports: [CommonModule, ReactiveFormsModule, FlexLayoutModule, TextControlComponent, DateControlComponent, SelectControlComponent],
     template: `
@@ -25,7 +25,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
         </form>
     `,
 })
-export class DemoFormComponent implements OnInit {
+export class DemoPageOneComponent implements OnInit {
     formGroup: FormGroup;
 
     // Define configuration objects for each control

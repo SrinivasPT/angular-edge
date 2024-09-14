@@ -16,7 +16,7 @@ import { ControlConfig } from '../core/models';
             <input
                 matInput
                 [id]="controlConfig.key"
-                [type]="controlConfig.type || 'text'"
+                [type]="controlConfig.typeCode || 'text'"
                 [formControl]="control"
                 [placeholder]="controlConfig.placeholder || ''"
                 [readonly]="controlConfig.readOnly || false"

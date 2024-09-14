@@ -1,8 +1,23 @@
 import { ValidatorFn } from '@angular/forms';
 
+export interface PageConfig {
+    buttons: string;
+    sections: string[];
+    additionalSections: string[];
+    sectionRepository: SectionConfig[];
+}
+
+export interface SectionConfig {
+    sectionId: string;
+    typeCode: string;
+    width: string;
+    controls: ControlConfig[];
+}
+
 export interface ControlConfig {
     key: string;
     label?: string;
+    typeCode?: string; // Control type (e.g., text, number, email)
     placeholder?: string;
     defaultValue?: any;
     readOnly?: boolean;
@@ -19,5 +34,4 @@ export interface ControlConfig {
     email?: boolean; // Specific validation for email format
     customValidator?: ValidatorFn; // Custom validation function
     width?: string;
-    type?: string; // Control type (e.g., text, number, email)
 }

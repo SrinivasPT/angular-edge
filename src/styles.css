@@ -26,3 +26,27 @@
     flex: 1 1 20%;
     max-width: 20%;
 }
+
+.form-renderer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+fieldset {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+legend {
+    font-weight: bold;
+    padding: 0 10px;
+}
+
+.submit-button {
+    padding: 10px 20px;
+    align-self: flex-start;
+}

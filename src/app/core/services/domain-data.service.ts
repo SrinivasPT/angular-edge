@@ -18,6 +18,11 @@ export class DomainDataService {
             { code: 'LA', displayText: 'Los Angeles' },
             { code: 'CH', displayText: 'Chicago' },
         ],
+        GENDER: [
+            { code: 'MALE', displayText: 'Male' },
+            { code: 'FEMALE', displayText: 'FEMALE' },
+            { code: 'OTHER', displayText: 'Other' },
+        ],
     };
 
     getDomain(categoryCode: string): Observable<DomainData[]> {
