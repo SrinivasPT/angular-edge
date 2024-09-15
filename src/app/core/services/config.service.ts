@@ -10,6 +10,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 export class ConfigService {
     private pageConfig: PageConfig | null = null;
     private readonly configUrl = 'http://localhost:3001/page-config/detail'; // API endpoint for page configuration
+    private readonly dataUrl = 'http://localhost:3001/data/detail';
 
     constructor(private http: HttpClient) {}
 
@@ -52,5 +53,15 @@ export class ConfigService {
         }
 
         return section || null;
+    }
+
+    getData(): any {
+        return this.http.get<PageConfig>(this.dataUrl).pipe(
+            tap((config) => (this.pageConfig = config)), // Store the loaded config
+            catchError((error) => {
+                console.error('Error loading configuration:', error);
+                return of(null);
+            })
+        );
     }
 }

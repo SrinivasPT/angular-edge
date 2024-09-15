@@ -122,8 +122,20 @@
     "data": [
         {
             "id": "detail",
-            "details": { "firstName": "Srinivas", "lastName": "P", "gender": "1974-01-01", "about": "Hello there... This is cool!" },
-            "address": { "addressLineOne": "Aparna Apartments", "addressLineTwo": "Nallagandla", "cityCode": "LA", "countryCode": "US" }
+            "details": {
+                "firstName": "John",
+                "lastName": "Doe",
+                "gender": "MALE",
+                "dob": "1984-01-01",
+                "about": "Hello there... I am John Doe.... and this is cool!",
+                "addressNested": {
+                    "addressLineOne": "Nested One Drive",
+                    "addressLineTwo": "Nested Two",
+                    "cityCode": "",
+                    "countryCode": "IN"
+                }
+            },
+            "address": { "addressLineOne": "One Drive", "addressLineTwo": "New Delhi", "cityCode": "LA", "countryCode": "US" }
         }
     ]
 }
