@@ -17,7 +17,6 @@ import { ControlService, DomainDataService } from '../core/services';
             <mat-select
                 [id]="controlConfig.key"
                 [formControl]="control"
-                [disabled]="controlConfig.readOnly || false"
                 [attr.aria-invalid]="ariaAttributes['aria-invalid']"
                 [attr.aria-required]="ariaAttributes['aria-required']"
                 [attr.aria-describedby]="getErrorId()"
@@ -48,7 +47,14 @@ export class SelectControlComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.control = this.controlService.createFormControl(this.controlConfig);
+        // this.control = this.controlService.createFormControl(this.controlConfig);
+        const isDisabled = this.controlConfig.readOnly || false;
+
+        this.control = this.controlService.createFormControl({
+            ...this.controlConfig,
+            defaultValue: { value: this.controlConfig.defaultValue || '', disabled: isDisabled }, // Set disabled state here
+        });
+
         this.ariaAttributes = this.controlService.getAriaAttributes(this.control, this.controlConfig);
 
         // Fetch domain data based on category code

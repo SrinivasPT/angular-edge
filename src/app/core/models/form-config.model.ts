@@ -21,6 +21,7 @@ export interface ControlConfig {
     label?: string;
     typeCode?: string; // Control type (e.g., text, number, email)
     placeholder?: string;
+    sectionKey?: string; // For the section control.
     defaultValue?: any;
     readOnly?: boolean;
     required?: boolean;
@@ -36,4 +37,5 @@ export interface ControlConfig {
     email?: boolean; // Specific validation for email format
     customValidator?: ValidatorFn; // Custom validation function
     width?: string;
+    displayOrder?: string;
 }

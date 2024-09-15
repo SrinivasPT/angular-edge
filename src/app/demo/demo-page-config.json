@@ -1,11 +1,13 @@
 {
+    "id": "detail",
+    "title": "Customer Information",
     "buttons": "SAVE",
-    "sections": ["customer-detail", "customer-address"],
+    "sections": ["details"],
     "additionalSections": [],
     "sectionRepository": [
         {
-            "key": "detail",
-            "title": "Customer Detail",
+            "key": "details",
+            "title": "Detail",
             "typeCode": "SECTION_CARD_WITH_HEADER",
             "width": "FULL",
             "controls": [
@@ -42,12 +44,19 @@
                     "maxLength": 100,
                     "width": "full-width",
                     "displayOrder": "3"
+                },
+                {
+                    "key": "test",
+                    "sectionKey": "test",
+                    "typeCode": "SECTION",
+                    "width": "full-width",
+                    "displayOrder": "4"
                 }
             ]
         },
         {
             "key": "address",
-            "title": "Customer Detail",
+            "title": "Address",
             "typeCode": "SECTION_CARD_WITH_HEADER",
             "width": "FULL",
             "controls": [
@@ -85,6 +94,23 @@
                     "maxLength": 100,
                     "width": "full-width",
                     "displayOrder": "3"
+                }
+            ]
+        },
+        {
+            "key": "test",
+            "title": "Test Detail",
+            "typeCode": "SECTION_CARD_WITH_HEADER",
+            "width": "FULL",
+            "controls": [
+                {
+                    "key": "firstName",
+                    "label": "First Name",
+                    "typeCode": "TEXT",
+                    "minLength": 10,
+                    "maxLength": 50,
+                    "width": "one-third",
+                    "displayOrder": "1"
                 }
             ]
         }

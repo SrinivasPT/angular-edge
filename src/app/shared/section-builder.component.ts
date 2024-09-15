@@ -9,10 +9,14 @@ import { ControlBuilderComponent } from './control-builder.component';
     standalone: true,
     imports: [CommonModule, ReactiveFormsModule, ControlBuilderComponent],
     template: `
-        <div [ngClass]="sectionConfig.width" class="section-wrapper">
-            <fieldset *ngIf="sectionConfig.typeCode === 'SECTION_CARD_WITH_HEADER'">
+        <div [formGroup]="sectionFormGroup" [ngClass]="sectionConfig.width">
+            <fieldset>
                 <legend>{{ sectionConfig.title }}</legend>
-                <app-control-builder [controlConfigs]="sectionConfig.controls" [formGroup]="sectionGroup"></app-control-builder>
+                <app-control-builder
+                    *ngFor="let control of sectionConfig.controls"
+                    [controlConfig]="control"
+                    [formGroup]="sectionFormGroup"
+                ></app-control-builder>
             </fieldset>
         </div>
     `,
@@ -21,15 +25,15 @@ import { ControlBuilderComponent } from './control-builder.component';
 export class SectionBuilderComponent implements OnInit {
     @Input() sectionConfig!: SectionConfig;
     @Input() formGroup!: FormGroup;
-    sectionGroup!: FormGroup;
+    sectionFormGroup!: FormGroup;
 
     constructor(private fb: FormBuilder) {}
 
     ngOnInit(): void {
         // Create a child FormGroup for this section
-        this.sectionGroup = this.fb.group({});
+        this.sectionFormGroup = this.fb.group({});
 
         // Add the new FormGroup to the passed in parent FormGroup
-        this.formGroup.addControl(this.sectionConfig.key, this.sectionGroup);
+        this.formGroup.addControl(this.sectionConfig.key, this.sectionFormGroup);
     }
 }

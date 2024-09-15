@@ -8,19 +8,29 @@ import { SelectControlComponent } from '../controls/select-control.component';
 import { ControlConfig } from '../core/models';
 import { ControlService } from '../core/services';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { SectionControlComponent } from '../controls/section-control.component';
 
 @Component({
     selector: 'app-demo-page-one',
     standalone: true,
-    imports: [CommonModule, ReactiveFormsModule, FlexLayoutModule, TextControlComponent, DateControlComponent, SelectControlComponent],
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        FlexLayoutModule,
+        TextControlComponent,
+        DateControlComponent,
+        SelectControlComponent,
+        SectionControlComponent,
+    ],
     template: `
         <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" fxLayout="row wrap" fxLayoutGap="20px" class="sample-form">
-            <app-text-control [controlConfig]="textConfig" [formGroup]="formGroup"></app-text-control>
+            <!-- <app-text-control [controlConfig]="textConfig" [formGroup]="formGroup"></app-text-control>
             <app-date-control [controlConfig]="dateConfig" [formGroup]="formGroup"></app-date-control>
             <app-select-control [controlConfig]="selectConfig" [formGroup]="formGroup"></app-select-control>
             <app-text-control [controlConfig]="textConfig" [formGroup]="formGroup"></app-text-control>
             <app-date-control [controlConfig]="dateConfig" [formGroup]="formGroup"></app-date-control>
-            <app-select-control [controlConfig]="selectConfig" [formGroup]="formGroup"></app-select-control>
+            <app-select-control [controlConfig]="selectConfig" [formGroup]="formGroup"></app-select-control> -->
+            <app-section-control [controlConfig]="selectConfig" [formGroup]="formGroup"></app-section-control>
             <button type="submit" [disabled]="formGroup.invalid">Submit</button>
         </form>
     `,
@@ -56,6 +66,24 @@ export class DemoPageOneComponent implements OnInit {
         placeholder: 'Select a loan type',
         width: 'one-third',
     };
+
+    // testConfig: ControlConfig = {
+    //     key: 'test',
+    //     title: 'Test Detail',
+    //     typeCode: 'SECTION_CARD_WITH_HEADER',
+    //     width: 'FULL',
+    //     controls: [
+    //         {
+    //             key: 'firstName',
+    //             label: 'First Name',
+    //             typeCode: 'TEXT',
+    //             minLength: 10,
+    //             maxLength: 50,
+    //             width: 'one-third',
+    //             displayOrder: '1',
+    //         },
+    //     ],
+    // };
 
     constructor(private controlService: ControlService) {
         this.formGroup = new FormGroup({});

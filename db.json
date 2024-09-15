@@ -1,0 +1,129 @@
+{
+    "page-config": [
+        {
+            "id": "detail",
+            "title": "Customer Information",
+            "buttons": "SAVE",
+            "sections": ["details"],
+            "additionalSections": [],
+            "sectionRepository": [
+                {
+                    "key": "details",
+                    "title": "Detail",
+                    "typeCode": "SECTION_CARD_WITH_HEADER",
+                    "width": "FULL",
+                    "controls": [
+                        {
+                            "key": "firstName",
+                            "label": "First Name",
+                            "typeCode": "TEXT",
+                            "minLength": 10,
+                            "maxLength": 50,
+                            "width": "one-third",
+                            "displayOrder": "1"
+                        },
+                        {
+                            "key": "lastName",
+                            "label": "Last Name",
+                            "typeCode": "TEXT",
+                            "minLength": 10,
+                            "maxLength": 50,
+                            "width": "one-third",
+                            "displayOrder": "2"
+                        },
+                        {
+                            "key": "gender",
+                            "label": "Gender",
+                            "typeCode": "SELECT",
+                            "categoryCode": "GENDER",
+                            "width": "one-third",
+                            "displayOrder": "3"
+                        },
+                        {
+                            "key": "about",
+                            "label": "Describe Yourself",
+                            "typeCode": "TEXT",
+                            "maxLength": 100,
+                            "width": "full-width",
+                            "displayOrder": "3"
+                        },
+                        {
+                            "key": "addressNested",
+                            "sectionKey": "address",
+                            "typeCode": "SECTION",
+                            "width": "full-width",
+                            "displayOrder": "4"
+                        }
+                    ]
+                },
+                {
+                    "key": "address",
+                    "title": "Address",
+                    "typeCode": "SECTION_CARD_WITH_HEADER",
+                    "width": "FULL",
+                    "controls": [
+                        {
+                            "key": "addressLineOne",
+                            "label": "Address Line 1",
+                            "typeCode": "TEXT",
+                            "minLength": 10,
+                            "maxLength": 50,
+                            "width": "one-third",
+                            "displayOrder": "1"
+                        },
+                        {
+                            "key": "addressLineTwo",
+                            "label": "Address Line 2",
+                            "typeCode": "TEXT",
+                            "minLength": 10,
+                            "maxLength": 50,
+                            "width": "one-third",
+                            "displayOrder": "2"
+                        },
+                        {
+                            "key": "cityCode",
+                            "label": "City",
+                            "typeCode": "SELECT",
+                            "categoryCode": "CITY_CODE",
+                            "width": "one-third",
+                            "displayOrder": "3"
+                        },
+                        {
+                            "key": "countryCode",
+                            "label": "Country",
+                            "typeCode": "SELECT",
+                            "categoryCode": "COUNTRY_CODE",
+                            "maxLength": 100,
+                            "width": "full-width",
+                            "displayOrder": "3"
+                        }
+                    ]
+                },
+                {
+                    "key": "test",
+                    "title": "Test Detail",
+                    "typeCode": "SECTION_CARD_WITH_HEADER",
+                    "width": "FULL",
+                    "controls": [
+                        {
+                            "key": "firstName",
+                            "label": "First Name",
+                            "typeCode": "TEXT",
+                            "minLength": 10,
+                            "maxLength": 50,
+                            "width": "one-third",
+                            "displayOrder": "1"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "data": [
+        {
+            "id": "detail",
+            "details": { "firstName": "Srinivas", "lastName": "P", "gender": "1974-01-01", "about": "Hello there... This is cool!" },
+            "address": { "addressLineOne": "Aparna Apartments", "addressLineTwo": "Nallagandla", "cityCode": "LA", "countryCode": "US" }
+        }
+    ]
+}

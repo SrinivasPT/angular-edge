@@ -1,8 +1,8 @@
 import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { FormGroup, ReactiveFormsModule, FormBuilder } from '@angular/forms';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { ControlConfig, SectionConfig } from '../core/models';
-import { ControlService } from '../core/services';
+import { PageConfig, SectionConfig } from '../core/models';
+import { ConfigService } from '../core/services';
 import { SectionBuilderComponent } from './section-builder.component';
 
 @Component({
@@ -10,27 +10,23 @@ import { SectionBuilderComponent } from './section-builder.component';
     standalone: true,
     imports: [CommonModule, ReactiveFormsModule, SectionBuilderComponent],
     template: `
-        <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" class="form-renderer">
-            <ng-container *ngFor="let section of sectionConfigs">
+        <ng-container>
+            <h2>{{ pageConfig.title }}</h2>
+            <ng-container *ngFor="let section of sections">
                 <app-section-builder [sectionConfig]="section" [formGroup]="formGroup"></app-section-builder>
             </ng-container>
-            <button type="submit" [disabled]="formGroup.invalid" class="submit-button">Submit</button>
-        </form>
+        </ng-container>
     `,
-
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FormBuilderComponent {
-    @Input() sectionConfigs: SectionConfig[] = [];
+export class FormBuilderComponent implements OnInit {
+    @Input() pageConfig!: PageConfig;
     @Input() formGroup!: FormGroup;
+    sections!: SectionConfig[];
 
-    constructor(private fb: FormBuilder, private controlService: ControlService) {
-        this.formGroup = this.fb.group({});
-    }
+    constructor(private configService: ConfigService) {}
 
-    // Handle form submission
-    onSubmit(): void {
-        console.log('Form Submitted', this.formGroup.value);
-        console.log('Form statu is', this.formGroup.valid);
+    ngOnInit(): void {
+        this.sections = this.configService.getFormSections();
     }
 }

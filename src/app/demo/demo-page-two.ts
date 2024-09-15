@@ -1,28 +1,35 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { ControlService } from '../core/services';
+import { ConfigService } from '../core/services';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { SectionBuilderComponent } from '../shared';
-import { PageConfig, SectionConfig } from '../core/models';
+import { PageConfig } from '../core/models';
 import { FormBuilderComponent } from '../shared/form-builder.component';
 
 @Component({
     selector: 'app-demo-page-two',
     standalone: true,
-    imports: [CommonModule, ReactiveFormsModule, FlexLayoutModule, SectionBuilderComponent, FormBuilderComponent],
+    imports: [CommonModule, ReactiveFormsModule, FlexLayoutModule, FormBuilderComponent],
     template: `
-        <ng-container *ngIf="pageConfig">
-            <app-form-builder [sectionConfigs]="pageConfig.sectionRepository" [formGroup]="formGroup"> </app-form-builder>
-            <button type="submit" (click)="onSubmit()">Submit</button>
-        </ng-container>
+        <div [formGroup]="formGroup">
+            <ng-container *ngIf="loading">
+                <p>Loading configuration, please wait...</p>
+            </ng-container>
+
+            <ng-container *ngIf="!loading">
+                <app-form-builder [pageConfig]="pageConfig" [formGroup]="formGroup"> </app-form-builder>
+                <button type="submit" (click)="onSubmit()">Submit</button>
+            </ng-container>
+            <div></div>
+        </div>
     `,
 })
 export class DemoPageTwoComponent implements OnInit {
     formGroup: FormGroup;
     pageConfig!: PageConfig; // Holds the full configuration
+    loading = true;
 
-    constructor(private fb: FormBuilder, private controlService: ControlService) {
+    constructor(private fb: FormBuilder, private configService: ConfigService) {
         this.formGroup = this.fb.group({});
     }
 
@@ -32,14 +39,14 @@ export class DemoPageTwoComponent implements OnInit {
 
     // Load the configuration JSON
     loadConfig(): void {
-        // Simulating loading from JSON file (typically would use a service or HTTP request)
-        import('./demo-page-config.json').then((config: any) => {
-            this.pageConfig = config;
+        this.configService.loadConfig().subscribe((data) => {
+            this.pageConfig = data as PageConfig; // Assign the loaded configuration
+            this.loading = false;
         });
     }
 
     onSubmit(): void {
         console.log('Form Submitted', this.formGroup.value);
-        console.log('Form statu is', this.formGroup.valid);
+        console.log('Form status is', this.formGroup.valid);
     }
 }
