@@ -12,7 +12,7 @@ import { ControlService, DomainDataService } from '../core/services';
     standalone: true,
     imports: [CommonModule, ReactiveFormsModule, MatFormFieldModule, MatSelectModule, MatInputModule],
     template: `
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="fill" style="width: 100%;">
             <mat-label *ngIf="controlConfig.label">{{ controlConfig.label }}</mat-label>
             <mat-select
                 [id]="controlConfig.key"

@@ -11,7 +11,7 @@ import { ControlConfig } from '../core/models';
     standalone: true,
     imports: [CommonModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule],
     template: `
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="fill" style="width: 100%;">
             <mat-label *ngIf="controlConfig.label">{{ controlConfig.label }}</mat-label>
             <input
                 matInput

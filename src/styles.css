@@ -1,72 +1,52 @@
 @import "@angular/material/prebuilt-themes/indigo-pink.css";
 
-/* styles.scss */
+/* Grid layout for form renderer */
+.form-renderer {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr); /* 12-column grid for flexible control placement */
+    gap: 20px; /* Consistent gap between controls */
+    margin: auto;
 
+    width: 100%; /* Ensure form takes the full available width */
+}
+
+/* Control width classes mapped to the 12-column grid system */
 .full-width {
-    flex: 1 1 100%;
-    max-width: 100%;
+    grid-column: span 12; /* Full row span */
 }
 
 .half-width {
-    flex: 1 1 50%;
-    max-width: 50%;
+    grid-column: span 6; /* Half row span */
 }
 
 .one-third {
-    flex: 1 1 33.33%;
-    max-width: 33.33%;
+    grid-column: span 4; /* One-third row span */
 }
 
 .one-fourth {
-    flex: 1 1 25%;
-    max-width: 25%;
+    grid-column: span 3; /* One-fourth row span */
 }
 
 .one-fifth {
-    flex: 1 1 20%;
-    max-width: 20%;
+    grid-column: span 2; /* One-fifth row span */
 }
 
-.form-renderer {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    max-width: 1200px;
-    margin: auto;
-}
-
+/* Updated styling for fieldset */
 fieldset {
-    border: 1px solid #ccc;
-    padding: 10px;
+    border: 2px solid #2f3031; /* Thicker border with a color for better visibility */
+    border-radius: 5px; /* Rounded corners for a softer look */
+    padding: 15px; /* Add padding inside the fieldset to create space around controls */
     margin-bottom: 20px;
+    display: contents; /* Changed to block to avoid width issues within grid parent */
+    width: 100%; /* Ensure the fieldset occupies the full width of the parent */
 }
 
+/* Legend styling to visually separate section titles */
 legend {
+    grid-column: span 12;
     font-weight: bold;
     padding: 0 10px;
-}
-
-.submit-button {
-    padding: 10px 20px;
-    align-self: flex-start;
-}
-
-.form-renderer {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    max-width: 1200px;
-    margin: auto;
-}
-
-.page-title {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 24px;
-    font-weight: bold;
-}
-
-.submit-button {
-    padding: 10px 20px;
-    align-self: flex-start;
+    margin-bottom: 10px; /* Add some spacing below the legend */
+    color: #007bff; /* Match the legend color to the border for a cohesive look */
+    font-size: 16px; /* Optional: adjust the font size to match your design */
 }

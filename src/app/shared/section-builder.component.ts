@@ -9,13 +9,14 @@ import { ControlBuilderComponent } from './control-builder.component';
     standalone: true,
     imports: [CommonModule, ReactiveFormsModule, ControlBuilderComponent],
     template: `
-        <div [formGroup]="sectionFormGroup" [ngClass]="sectionConfig.width">
+        <div [formGroup]="sectionFormGroup" class="form-renderer">
             <fieldset>
                 <legend>{{ sectionConfig.title }}</legend>
                 <app-control-builder
                     *ngFor="let control of sectionConfig.controls"
                     [controlConfig]="control"
                     [formGroup]="sectionFormGroup"
+                    [ngClass]="control.width"
                 ></app-control-builder>
             </fieldset>
         </div>

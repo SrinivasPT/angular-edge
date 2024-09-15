@@ -11,10 +11,12 @@ import { ConfigService } from '../core/services';
     imports: [CommonModule, ReactiveFormsModule, ControlBuilderComponent],
     template: `
         <div [formGroup]="sectionGroup">
-            <legend>{{ sectionConfig.title }}</legend>
-            <ng-container *ngFor="let control of sectionConfig.controls">
-                <app-control-builder [controlConfig]="control" [formGroup]="sectionGroup"> </app-control-builder>
-            </ng-container>
+            <fieldset>
+                <legend>{{ sectionConfig.title }}</legend>
+                <ng-container *ngFor="let control of sectionConfig.controls">
+                    <app-control-builder [controlConfig]="control" [formGroup]="sectionGroup"> </app-control-builder>
+                </ng-container>
+            </fieldset>
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,

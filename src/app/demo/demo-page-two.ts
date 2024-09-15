@@ -11,7 +11,7 @@ import { FormBuilderComponent } from '../shared/form-builder.component';
     standalone: true,
     imports: [CommonModule, ReactiveFormsModule, FlexLayoutModule, FormBuilderComponent],
     template: `
-        <div [formGroup]="formGroup">
+        <div [formGroup]="formGroup" style="width: 100%;">
             <ng-container *ngIf="loading">
                 <p>Loading configuration, please wait...</p>
             </ng-container>
