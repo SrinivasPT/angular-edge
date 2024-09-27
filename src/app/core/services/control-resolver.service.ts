@@ -1,9 +1,13 @@
 // control-resolver.service.ts
 import { Injectable, ViewContainerRef, Type } from '@angular/core';
-import { TextControlComponent } from '../../controls';
-import { DateControlComponent } from '../../controls';
-import { SelectControlComponent } from '../../controls';
-import { SectionControlComponent } from '../../controls';
+import {
+    DateControlComponent,
+    SectionControlComponent,
+    SelectControlComponent,
+    SimpleTableControlComponent,
+    TableControlComponent,
+    TextControlComponent,
+} from '../../controls';
 import { ControlConfig } from '../models';
 import { FormGroup } from '@angular/forms';
 
@@ -17,12 +21,14 @@ export class ControlResolverService {
         DATE: DateControlComponent,
         SELECT: SelectControlComponent,
         SECTION: SectionControlComponent,
+        TABLE: SimpleTableControlComponent,
     };
 
     constructor() {}
 
     // Method to resolve and create the appropriate component dynamically
     resolveControl(typeCode: string, container: ViewContainerRef, controlConfig: ControlConfig, formGroup: FormGroup): void {
+        console.log('Resolving control for type:', typeCode); // Add logging here
         const component = this.controlMap[typeCode];
         if (component) {
             // Create the component directly without using ComponentFactoryResolver

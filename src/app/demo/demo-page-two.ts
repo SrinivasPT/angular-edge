@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { FormGroup, ReactiveFormsModule, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ConfigService } from '../core/services';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -20,7 +20,6 @@ import { FormBuilderComponent } from '../shared/form-builder.component';
                 <app-form-builder [pageConfig]="pageConfig" [formGroup]="formGroup"> </app-form-builder>
                 <button type="submit" (click)="onSubmit()">Submit</button>
             </ng-container>
-            <div></div>
         </div>
     `,
 })
@@ -45,7 +44,8 @@ export class DemoPageTwoComponent implements OnInit, AfterViewInit {
     // Method to fetch and set the form data
     populateFormWithData(): void {
         this.configService.getData().subscribe((data: any) => {
-            this.formGroup.patchValue(data); // Set the retrieved data to the form
+            // Patch the entire form value, including the table data
+            this.formGroup.patchValue(data);
         });
     }
 

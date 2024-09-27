@@ -24,10 +24,11 @@ import { ConfigService } from '../core/services';
 export class SectionControlComponent implements OnInit {
     @Input() controlConfig!: ControlConfig;
     @Input() formGroup!: FormGroup;
+
     sectionGroup!: FormGroup;
     sectionConfig!: SectionConfig;
 
-    constructor(private fb: FormBuilder, private configService: ConfigService, private cdr: ChangeDetectorRef) {}
+    constructor(private fb: FormBuilder, private configService: ConfigService) {}
 
     ngOnInit(): void {
         this.sectionGroup = this.fb.group({});

@@ -4,7 +4,7 @@
             "id": "detail",
             "title": "Customer Information",
             "buttons": "SAVE",
-            "sections": ["details", "address"],
+            "sections": ["details"],
             "additionalSections": [],
             "sectionRepository": [
                 {
@@ -48,11 +48,48 @@
                             "displayOrder": "3"
                         },
                         {
-                            "key": "addressNested",
+                            "key": "addressTable",
                             "sectionKey": "address",
-                            "typeCode": "SECTION",
+                            "typeCode": "TABLE",
                             "width": "full-width",
-                            "displayOrder": "4"
+                            "displayOrder": "4",
+                            "columns": [
+                                {
+                                    "key": "addressLineOne",
+                                    "label": "Address Line 1",
+                                    "typeCode": "TEXT",
+                                    "minLength": 10,
+                                    "maxLength": 50,
+                                    "width": "one-third",
+                                    "displayOrder": "1"
+                                },
+                                {
+                                    "key": "addressLineTwo",
+                                    "label": "Address Line 2",
+                                    "typeCode": "TEXT",
+                                    "minLength": 10,
+                                    "maxLength": 50,
+                                    "width": "one-third",
+                                    "displayOrder": "2"
+                                },
+                                {
+                                    "key": "cityCode",
+                                    "label": "City",
+                                    "typeCode": "SELECT",
+                                    "categoryCode": "CITY_CODE",
+                                    "width": "one-third",
+                                    "displayOrder": "3"
+                                },
+                                {
+                                    "key": "countryCode",
+                                    "label": "Country",
+                                    "typeCode": "SELECT",
+                                    "categoryCode": "COUNTRY_CODE",
+                                    "maxLength": 100,
+                                    "width": "full-width",
+                                    "displayOrder": "3"
+                                }
+                            ]
                         }
                     ]
                 },
@@ -133,8 +170,14 @@
                     "addressLineTwo": "Nested Two",
                     "cityCode": "",
                     "countryCode": "IN"
-                }
+                },
+                "addressTable": [
+                    { "addressLineOne": "One Drive", "addressLineTwo": "One Delhi", "cityCode": "LA", "countryCode": "US" },
+                    { "addressLineOne": "Two Drive", "addressLineTwo": "Two Delhi", "cityCode": "LA", "countryCode": "US" },
+                    { "addressLineOne": "Three Drive", "addressLineTwo": "Three Delhi", "cityCode": "LA", "countryCode": "US" }
+                ]
             },
+
             "address": { "addressLineOne": "One Drive", "addressLineTwo": "New Delhi", "cityCode": "LA", "countryCode": "US" }
         }
     ]

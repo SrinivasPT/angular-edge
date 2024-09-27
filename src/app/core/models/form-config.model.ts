@@ -38,4 +38,12 @@ export interface ControlConfig {
     customValidator?: ValidatorFn; // Custom validation function
     width?: string;
     displayOrder?: string;
+    // For table
+    title?: string; // Table title (optional)
+    columns?: ControlConfig[]; // Columns will follow the same configuration as controls
+    dataSource?: any[]; // Data to be displayed
+    pagination?: boolean; // Enable pagination
+    pageSize?: number; // Default page size for pagination
+    sortable?: boolean; // Enable sorting
+    filterable?: boolean; // Enable filtering
 }
