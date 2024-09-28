@@ -1,15 +1,15 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { ConfigService } from '../core/services';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { PageConfig } from '../core/models';
-import { FormBuilderComponent } from '../shared/form-builder.component';
+import { FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { PageConfig } from '@edge/core/models';
+import { ConfigService } from '@edge/core/services';
+import { SharedModule } from '@edge/shared.module';
 
 @Component({
     selector: 'app-demo-page-two',
     standalone: true,
-    imports: [CommonModule, ReactiveFormsModule, FlexLayoutModule, FormBuilderComponent],
+    imports: [CommonModule, ReactiveFormsModule, FlexLayoutModule, SharedModule],
     template: `
         <div [formGroup]="formGroup" style="width: 100%;">
             <ng-container *ngIf="formLoading">

@@ -1,14 +1,10 @@
 import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { FormGroup } from '@angular/forms';
 import { PageConfig, SectionConfig } from '../core/models';
 import { ConfigService } from '../core/services';
-import { SectionBuilderComponent } from './section-builder.component';
 
 @Component({
     selector: 'app-form-builder',
-    standalone: true,
-    imports: [CommonModule, ReactiveFormsModule, SectionBuilderComponent],
     template: `
         <ng-container>
             <h2>{{ pageConfig.title }}</h2>

@@ -1,13 +1,9 @@
 import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { SectionConfig } from '../core/models';
-import { ControlBuilderComponent } from './control-builder.component';
 
 @Component({
     selector: 'app-section-builder',
-    standalone: true,
-    imports: [CommonModule, ReactiveFormsModule, ControlBuilderComponent],
     template: `
         <div [formGroup]="sectionFormGroup" class="form-renderer">
             <fieldset>

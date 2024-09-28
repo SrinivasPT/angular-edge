@@ -1,16 +1,10 @@
 import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
-import { MatInputModule } from '@angular/material/input';
+import { FormControl, FormGroup } from '@angular/forms';
 import { ControlConfig, DomainData } from '../core/models';
 import { ControlService, DomainDataService } from '../core/services';
 
 @Component({
     selector: 'app-select-control',
-    standalone: true,
-    imports: [CommonModule, ReactiveFormsModule, MatFormFieldModule, MatSelectModule, MatInputModule],
     template: `
         <mat-form-field appearance="fill" style="width: 100%;">
             <mat-label *ngIf="controlConfig.label">{{ controlConfig.label }}</mat-label>

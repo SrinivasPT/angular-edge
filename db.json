@@ -47,6 +47,7 @@
                             "width": "full-width",
                             "displayOrder": "3"
                         },
+
                         {
                             "key": "addressTable",
                             "sectionKey": "address",
@@ -150,6 +151,13 @@
                             "maxLength": 50,
                             "width": "one-third",
                             "displayOrder": "1"
+                        },
+                        {
+                            "key": "addressNested",
+                            "sectionKey": "address",
+                            "typeCode": "SECTION",
+                            "width": "full-width",
+                            "displayOrder": "4"
                         }
                     ]
                 }

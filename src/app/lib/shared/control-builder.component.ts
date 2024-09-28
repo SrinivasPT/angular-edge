@@ -1,15 +1,11 @@
 // control-builder.component.ts
 import { Component, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { ControlConfig } from '../core/models';
 import { ControlResolverService } from '../core/services/control-resolver.service';
-import { FlexLayoutModule } from '@angular/flex-layout'; // Optional, if needed for layout
 
 @Component({
     selector: 'app-control-builder',
-    standalone: true,
-    imports: [CommonModule, ReactiveFormsModule, FlexLayoutModule],
     template: ` <ng-container #dynamicContainer></ng-container> `,
 })
 export class ControlBuilderComponent implements OnInit {

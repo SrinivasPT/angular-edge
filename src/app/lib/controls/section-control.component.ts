@@ -1,14 +1,14 @@
-import { Component, Input, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, AfterViewInit } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, AfterViewInit, NgModule } from '@angular/core';
 import { FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ControlConfig, SectionConfig } from '../core/models';
-import { ControlBuilderComponent } from '../shared';
 import { ConfigService } from '../core/services';
+import { SharedModule } from '@edge/shared.module';
 
 @Component({
     selector: 'app-section-control',
     standalone: true,
-    imports: [CommonModule, ReactiveFormsModule, ControlBuilderComponent],
+    imports: [CommonModule, ReactiveFormsModule, SharedModule],
     template: `
         <div [formGroup]="sectionGroup">
             <fieldset>
