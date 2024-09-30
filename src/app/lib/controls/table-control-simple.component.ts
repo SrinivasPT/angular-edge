@@ -37,7 +37,7 @@ import { ControlConfig } from '../core/models';
             <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
         </div>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.Default,
 })
 export class SimpleTableControlComponent implements OnInit {
     @Input() controlConfig!: ControlConfig; // The table configuration
