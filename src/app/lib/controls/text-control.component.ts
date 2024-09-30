@@ -24,7 +24,7 @@ import { ControlConfig } from '../core/models';
             </mat-error>
         </mat-form-field>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.Default,
 })
 export class TextControlComponent implements OnInit {
     @Input() controlConfig!: ControlConfig;
@@ -34,14 +34,33 @@ export class TextControlComponent implements OnInit {
 
     constructor(public controlService: ControlService) {}
 
-    ngOnInit(): void {
-        this.control = this.controlService.createFormControl(this.controlConfig);
-        this.ariaAttributes = this.controlService.getAriaAttributes(this.control, this.controlConfig);
+    // ngOnInit(): void {
+    //     this.control = this.controlService.createFormControl(this.controlConfig);
+    //     this.ariaAttributes = this.controlService.getAriaAttributes(this.control, this.controlConfig);
 
-        // Add this control to the parent FormGroup
-        if (this.formGroup) {
-            this.formGroup.addControl(this.controlConfig.key, this.control);
+    //     // Add this control to the parent FormGroup
+    //     if (this.formGroup) {
+    //         this.formGroup.addControl(this.controlConfig.key, this.control);
+    //     }
+    // }
+
+    ngOnInit(): void {
+        // Check if the control already exists in the FormGroup
+        if (this.formGroup && this.formGroup.get(this.controlConfig.key)) {
+            // Use the existing FormControl
+            this.control = this.formGroup.get(this.controlConfig.key) as FormControl;
+        } else {
+            // Create a new FormControl with initial value
+            const initialValue = this.controlConfig?.defaultValue || null;
+            this.control = this.controlService.createFormControl(this.controlConfig);
+
+            // Add this control to the parent FormGroup
+            if (this.formGroup) {
+                this.formGroup.addControl(this.controlConfig.key, this.control);
+            }
         }
+
+        this.ariaAttributes = this.controlService.getAriaAttributes(this.control, this.controlConfig);
     }
 
     // Get the ID of the error message element for ARIA compliance
