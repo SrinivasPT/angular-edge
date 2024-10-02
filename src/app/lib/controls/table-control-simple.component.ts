@@ -50,15 +50,13 @@ export class SimpleTableControlComponent implements OnInit, AfterViewInit {
 
     // Form controls
     viewControl!: FormControl; // Holds data in view mode under 'address'
-    editFormArray!: FormArray; // Holds data in edit mode under 'addressEdit'
+    editFormArray!: FormArray; // Holds data in edit mode for the current page
 
     displayedColumns: any[] = []; // Columns to be displayed
     displayedColumnKeys: string[] = []; // Column keys for template
     dataSource = new MatTableDataSource<any>(); // Data source for the table
     isEditMode = false; // Track edit mode
-
-    // Store FormGroups for each row in view mode
-    viewRowForms: { [key: number]: FormGroup } = {};
+    editPageIndex!: number;
 
     @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -69,13 +67,11 @@ export class SimpleTableControlComponent implements OnInit, AfterViewInit {
         this.displayedColumns = this.controlConfig?.columns || [];
         this.displayedColumnKeys = this.displayedColumns.map((col) => col.key);
 
-        // Ensure 'address' FormControl exists
         if (!this.formGroup.get(this.controlConfig.key)) {
             this.formGroup.addControl(this.controlConfig.key, new FormControl([]));
         }
         this.viewControl = this.formGroup.get(this.controlConfig.key) as FormControl;
 
-        // Initialize the table with the data from 'address'
         this.initializeTable();
 
         // Subscribe to viewControl valueChanges to repaint the grid when data changes
@@ -92,43 +88,29 @@ export class SimpleTableControlComponent implements OnInit, AfterViewInit {
     initializeTable(): void {
         // Update dataSource with the latest value from viewControl
         this.dataSource.data = this.viewControl.value || [];
-
-        // Clear viewRowForms
-        this.viewRowForms = {};
-
-        // Construct FormGroups for each row in view mode
-        if (!this.isEditMode) {
-            this.dataSource.data.forEach((row: any, rowIndex: number) => {
-                const rowFormGroup = this.fb.group({});
-                this.displayedColumns.forEach((col) => {
-                    rowFormGroup.addControl(col.key, this.fb.control(row[col.key]));
-                });
-                this.viewRowForms[rowIndex] = rowFormGroup;
-            });
-        }
     }
 
     // Toggle between view and edit mode
     toggleEditMode(): void {
         if (this.isEditMode) {
-            // Exiting edit mode: save data back to 'address' and clean up
+            // Exiting edit mode: save data back to 'address'
             this.saveTableData();
-            this.formGroup.removeControl(this.controlConfig.key + 'Edit');
             this.editFormArray = null!;
         } else {
-            // Entering edit mode: create 'addressEdit' and populate it
+            // Entering edit mode: create FormArray for current page
             this.enterEditMode();
         }
         this.isEditMode = !this.isEditMode;
     }
 
-    // Enter edit mode: create 'addressEdit' FormArray and populate it
+    // Enter edit mode: create FormArray for current page data
     enterEditMode(): void {
-        const viewData = this.viewControl.value || [];
+        const currentPageData = this.getCurrentPageData();
         this.editFormArray = this.fb.array([]);
+        this.editPageIndex = this.paginator.pageIndex;
 
         // Populate the FormArray with FormGroups for editing
-        viewData.forEach((rowData: any) => {
+        currentPageData.forEach((rowData: any) => {
             const rowFormGroup = this.fb.group({});
             this.displayedColumns.forEach((col) => {
                 rowFormGroup.addControl(col.key, this.fb.control(rowData[col.key]));
@@ -136,32 +118,41 @@ export class SimpleTableControlComponent implements OnInit, AfterViewInit {
             this.editFormArray.push(rowFormGroup);
         });
 
-        this.formGroup.addControl(this.controlConfig.key + 'Edit', this.editFormArray);
-
-        // Update dataSource for the table in edit mode
-        this.dataSource.data = viewData;
+        // Update dataSource to only current page data
+        this.dataSource.data = currentPageData;
     }
 
     // Save the updated data back to the 'address' FormControl
     saveTableData(): void {
         const editedData = this.editFormArray.getRawValue();
+
+        // Get full data
+        const fullData = this.viewControl.value || [];
+
+        // Get indices of current page data in full data
+        const startIndex = this.editPageIndex * this.paginator.pageSize;
+        const endIndex = startIndex + this.paginator.pageSize;
+
+        // Update only the current page data in fullData
+        fullData.splice(startIndex, editedData.length, ...editedData);
+
         // Update 'address' with the edited data
-        this.viewControl.setValue(editedData);
+        this.viewControl.setValue(fullData);
 
-        // Update dataSource for view mode
-        this.dataSource.data = editedData;
+        // Update dataSource with the full data
+        this.dataSource.data = fullData;
+    }
 
-        // Re-initialize the table to rebuild viewRowForms
-        this.initializeTable();
+    // Get the data for the current page
+    getCurrentPageData(): any[] {
+        const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
+        const endIndex = startIndex + this.paginator.pageSize;
+        return this.viewControl.value.slice(startIndex, endIndex);
     }
 
     // Get the FormGroup for a specific row
     getRowFormGroup(rowIndex: number): FormGroup {
-        if (this.isEditMode) {
-            return this.editFormArray.at(rowIndex) as FormGroup;
-        } else {
-            return this.viewRowForms[rowIndex];
-        }
+        return this.editFormArray.at(rowIndex) as FormGroup;
     }
 
     // Get the ControlConfig for a specific column
