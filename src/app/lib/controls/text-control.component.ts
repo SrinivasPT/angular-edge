@@ -29,38 +29,21 @@ import { ControlConfig } from '../core/models';
 export class TextControlComponent implements OnInit {
     @Input() controlConfig!: ControlConfig;
     @Input() formGroup!: FormGroup;
+    @Input() data!: any;
+
     control!: FormControl;
     ariaAttributes!: { [key: string]: string | null };
 
     constructor(public controlService: ControlService) {}
 
-    // ngOnInit(): void {
-    //     this.control = this.controlService.createFormControl(this.controlConfig);
-    //     this.ariaAttributes = this.controlService.getAriaAttributes(this.control, this.controlConfig);
-
-    //     // Add this control to the parent FormGroup
-    //     if (this.formGroup) {
-    //         this.formGroup.addControl(this.controlConfig.key, this.control);
-    //     }
-    // }
-
     ngOnInit(): void {
-        // Check if the control already exists in the FormGroup
-        if (this.formGroup && this.formGroup.get(this.controlConfig.key)) {
-            // Use the existing FormControl
-            this.control = this.formGroup.get(this.controlConfig.key) as FormControl;
-        } else {
-            // Create a new FormControl with initial value
-            const initialValue = this.controlConfig?.defaultValue || null;
-            this.control = this.controlService.createFormControl(this.controlConfig);
-
-            // Add this control to the parent FormGroup
-            if (this.formGroup) {
-                this.formGroup.addControl(this.controlConfig.key, this.control);
-            }
-        }
-
+        this.control = this.controlService.createFormControl(this.controlConfig, this.data);
         this.ariaAttributes = this.controlService.getAriaAttributes(this.control, this.controlConfig);
+
+        // Add this control to the parent FormGroup
+        if (this.formGroup) {
+            this.formGroup.addControl(this.controlConfig.key, this.control);
+        }
     }
 
     // Get the ID of the error message element for ARIA compliance

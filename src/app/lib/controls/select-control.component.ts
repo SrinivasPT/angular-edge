@@ -31,6 +31,8 @@ import { ControlService, DomainDataService } from '../core/services';
 export class SelectControlComponent implements OnInit {
     @Input() controlConfig!: ControlConfig;
     @Input() formGroup!: FormGroup;
+    @Input() data!: any;
+
     control!: FormControl;
     ariaAttributes!: { [key: string]: string | null };
     options: DomainData[] = [];
@@ -44,10 +46,13 @@ export class SelectControlComponent implements OnInit {
         // this.control = this.controlService.createFormControl(this.controlConfig);
         const isDisabled = this.controlConfig.readOnly || false;
 
-        this.control = this.controlService.createFormControl({
-            ...this.controlConfig,
-            defaultValue: { value: this.controlConfig.defaultValue || '', disabled: isDisabled }, // Set disabled state here
-        });
+        this.control = this.controlService.createFormControl(
+            {
+                ...this.controlConfig,
+                defaultValue: { value: this.controlConfig.defaultValue || '', disabled: isDisabled }, // Set disabled state here
+            },
+            this.data
+        );
 
         this.ariaAttributes = this.controlService.getAriaAttributes(this.control, this.controlConfig);
 

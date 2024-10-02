@@ -26,6 +26,7 @@ import { MatPaginator } from '@angular/material/paginator';
                                 <app-control-builder
                                     [controlConfig]="getControl(column.key)"
                                     [formGroup]="getRowFormGroup(rowIndex)"
+                                    [data]="row[column.key]"
                                 ></app-control-builder>
                             </div>
                         </ng-container>
@@ -114,9 +115,9 @@ export class SimpleTableControlComponent implements OnInit, AfterViewInit {
         // Populate the FormArray with FormGroups for editing
         currentPageData.forEach((rowData: any) => {
             const rowFormGroup = this.fb.group({});
-            this.displayedColumns.forEach((col) => {
-                rowFormGroup.addControl(col.key, this.fb.control(rowData[col.key]));
-            });
+            // this.displayedColumns.forEach((col) => {
+            //     rowFormGroup.addControl(col.key, this.fb.control(rowData[col.key]));
+            // });
             this.editFormArray.push(rowFormGroup);
         });
 

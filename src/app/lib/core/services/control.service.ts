@@ -7,8 +7,8 @@ import { ErrorMessage, ControlConfig } from '../models'; // Ensure ErrorMessage 
 })
 export class ControlService {
     // Method to initialize a FormControl based on the provided configuration
-    createFormControl(config: ControlConfig): FormControl {
-        return new FormControl(config.defaultValue || '', this.getValidators(config));
+    createFormControl(config: ControlConfig, data: any = ''): FormControl {
+        return new FormControl(data || config.defaultValue || '', this.getValidators(config));
     }
 
     // Method to generate validators based on control configuration

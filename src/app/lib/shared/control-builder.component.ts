@@ -11,12 +11,19 @@ import { ControlResolverService } from '../core/services/control-resolver.servic
 export class ControlBuilderComponent implements OnInit {
     @Input() controlConfig!: ControlConfig;
     @Input() formGroup!: FormGroup;
+    @Input() data!: any;
     @ViewChild('dynamicContainer', { read: ViewContainerRef, static: true }) container!: ViewContainerRef;
 
     constructor(private controlResolver: ControlResolverService) {}
 
     ngOnInit(): void {
         // Use the resolver to dynamically render the appropriate component
-        this.controlResolver.resolveControl(this.controlConfig.typeCode as string, this.container, this.controlConfig, this.formGroup);
+        this.controlResolver.resolveControl(
+            this.controlConfig.typeCode as string,
+            this.container,
+            this.controlConfig,
+            this.formGroup,
+            this.data
+        );
     }
 }

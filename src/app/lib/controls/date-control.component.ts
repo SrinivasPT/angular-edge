@@ -33,6 +33,8 @@ import { ControlConfig } from '../core/models';
 export class DateControlComponent implements OnInit {
     @Input() controlConfig!: ControlConfig;
     @Input() formGroup!: FormGroup;
+    @Input() data!: any;
+
     control!: FormControl;
     ariaAttributes!: { [key: string]: string | null };
 
@@ -40,7 +42,7 @@ export class DateControlComponent implements OnInit {
 
     ngOnInit(): void {
         // Initialize the FormControl with the validators defined in the service
-        this.control = this.controlService.createFormControl(this.controlConfig);
+        this.control = this.controlService.createFormControl(this.controlConfig, this.data);
 
         // Set ARIA attributes for accessibility
         this.ariaAttributes = this.controlService.getAriaAttributes(this.control, this.controlConfig);

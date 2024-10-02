@@ -27,7 +27,13 @@ export class ControlResolverService {
     constructor(private environmentInjector: EnvironmentInjector) {}
 
     // Method to resolve and create the appropriate component dynamically
-    resolveControl(typeCode: string, container: ViewContainerRef, controlConfig: ControlConfig, formGroup: FormGroup): void {
+    resolveControl(
+        typeCode: string,
+        container: ViewContainerRef,
+        controlConfig: ControlConfig,
+        formGroup: FormGroup,
+        data: any = ''
+    ): void {
         console.log('Resolving control for type:', typeCode);
         const component = this.controlMap[typeCode];
         if (component) {
@@ -36,6 +42,7 @@ export class ControlResolverService {
             });
             componentRef.instance.controlConfig = controlConfig;
             componentRef.instance.formGroup = formGroup;
+            componentRef.instance.data = data;
         } else {
             console.error(`Unknown control type: ${typeCode}`);
         }
