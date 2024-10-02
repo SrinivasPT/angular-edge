@@ -8,6 +8,7 @@ import {
     SelectControlComponent,
     SectionControlComponent,
     TableControlComponent,
+    ButtonControlComponent,
 } from '../../controls';
 import { SharedModule } from '@edge/shared.module';
 
@@ -22,6 +23,7 @@ export class ControlResolverService {
         SELECT: SelectControlComponent,
         SECTION: SectionControlComponent,
         TABLE: TableControlComponent,
+        BUTTON: ButtonControlComponent,
     };
 
     constructor(private environmentInjector: EnvironmentInjector) {}

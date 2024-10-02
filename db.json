@@ -91,6 +91,12 @@
                                     "displayOrder": "3"
                                 }
                             ]
+                        },
+                        {
+                            "key": "saveAction",
+                            "label": "Save",
+                            "typeCode": "BUTTON",
+                            "width": "one-third"
                         }
                     ]
                 },

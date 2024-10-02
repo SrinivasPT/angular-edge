@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormControl, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
+import { FormControl, Validators, ValidatorFn, AbstractControl, FormGroup } from '@angular/forms';
 import { ErrorMessage, ControlConfig } from '../models'; // Ensure ErrorMessage and ControlConfig are imported correctly
 
 @Injectable({
@@ -91,5 +91,21 @@ export class ControlService {
             'aria-required': config.required ? 'true' : 'false',
             'aria-describedby': control.invalid ? `${config.key}-error` : null,
         };
+    }
+
+    getAction(formGroup: FormGroup, actionKey: string): (() => void) | null {
+        let currentFormGroup: FormGroup | null = formGroup;
+
+        while (currentFormGroup) {
+            const actionsControl = currentFormGroup.get('actions');
+
+            if (actionsControl && actionsControl.value && typeof actionsControl.value[actionKey] === 'function') {
+                return actionsControl.value[actionKey]; // Return the function if found
+            }
+
+            currentFormGroup = currentFormGroup.parent as FormGroup;
+        }
+
+        return null;
     }
 }
