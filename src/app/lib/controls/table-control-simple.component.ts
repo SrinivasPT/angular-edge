@@ -8,9 +8,11 @@ import { MatPaginator } from '@angular/material/paginator';
     selector: 'app-simple-table-control',
     template: `
         <div>
-            <button mat-raised-button color="primary" (click)="toggleEditMode()">
-                {{ isEditMode ? 'Save' : 'Edit' }}
-            </button>
+            <button mat-raised-button color="primary" *ngIf="!isEditMode" (click)="toggleEditMode()">Edit</button>
+            <ng-container *ngIf="isEditMode">
+                <button mat-raised-button color="primary" (click)="toggleEditMode()">Save</button>
+                <button mat-raised-button color="warn" (click)="cancelEdit()">Cancel</button>
+            </ng-container>
 
             <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
                 <!-- Define Columns Based on ControlConfig -->
@@ -141,6 +143,13 @@ export class SimpleTableControlComponent implements OnInit, AfterViewInit {
 
         // Update dataSource with the full data
         this.dataSource.data = fullData;
+    }
+
+    cancelEdit(): void {
+        this.isEditMode = false;
+        const fullData = this.viewControl.value || [];
+        this.viewControl.setValue(fullData); // Revert to original data
+        this.dataSource.data = fullData; // Update dataSource with original data
     }
 
     // Get the data for the current page
