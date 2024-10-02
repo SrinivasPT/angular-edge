@@ -15,13 +15,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSelectModule } from '@angular/material/select';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ControlBuilderComponent, FormBuilderComponent, SectionBuilderComponent } from './shared';
-import {
-    TextControlComponent,
-    DateControlComponent,
-    SelectControlComponent,
-    SimpleTableControlComponent,
-    TableControlComponent,
-} from './controls';
+import { TextControlComponent, DateControlComponent, SelectControlComponent, TableControlComponent } from './controls';
 
 @NgModule({
     declarations: [
@@ -32,7 +26,6 @@ import {
         TextControlComponent,
         DateControlComponent,
         SelectControlComponent,
-        SimpleTableControlComponent,
         TableControlComponent,
     ],
     imports: [
@@ -60,7 +53,6 @@ import {
         TextControlComponent,
         DateControlComponent,
         SelectControlComponent,
-        SimpleTableControlComponent,
         TableControlComponent,
         //
         MatFormFieldModule,
