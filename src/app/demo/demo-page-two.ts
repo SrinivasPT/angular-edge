@@ -33,27 +33,15 @@ export class DemoPageTwoComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit(): void {
-        this.loadConfig();
-    }
-
-    ngAfterViewInit(): void {
-        // Check form readiness after view init
-        this.populateFormWithData();
-    }
-
-    // Method to fetch and set the form data
-    populateFormWithData(): void {
-        this.configService.getData().subscribe((data: any) => {
-            // Patch the entire form value, including the table data
-            this.formGroup.patchValue(data);
-        });
-    }
-
-    // Load the configuration JSON
-    loadConfig(): void {
         this.configService.loadConfig().subscribe((data) => {
             this.pageConfig = data as PageConfig; // Assign the loaded configuration
             this.formLoading = false;
+        });
+    }
+
+    ngAfterViewInit(): void {
+        this.configService.getData().subscribe((data: any) => {
+            this.formGroup.patchValue(data);
         });
     }
 

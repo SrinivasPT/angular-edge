@@ -1,46 +1,50 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ControlConfig } from '../core/models';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
     selector: 'app-simple-table-control',
-    template: `<div>
-        <button mat-raised-button color="primary" (click)="toggleEditMode()">
-            {{ isEditMode ? 'Save' : 'Edit' }}
-        </button>
+    template: `
+        <div>
+            <button mat-raised-button color="primary" (click)="toggleEditMode()">
+                {{ isEditMode ? 'Save' : 'Edit' }}
+            </button>
 
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
-            <!-- Define Columns Based on ControlConfig -->
-            <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column.key">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ column.label }}</th>
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+                <!-- Define Columns Based on ControlConfig -->
+                <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column.key">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ column.label }}</th>
 
-                <!-- Cell Definition: Render input field if in edit mode -->
-                <td mat-cell *matCellDef="let row; let rowIndex = index">
-                    <ng-container *ngIf="isEditMode; else viewMode">
-                        <div [formGroup]="getRowFormGroup(rowIndex)">
-                            <app-control-builder
-                                [controlConfig]="getControl(column.key)"
-                                [formGroup]="getRowFormGroup(rowIndex)"
-                            ></app-control-builder>
-                        </div>
-                    </ng-container>
-                    <ng-template #viewMode>
-                        {{ row[column.key] }}
-                    </ng-template>
-                </td>
-            </ng-container>
+                    <!-- Cell Definition: Render input field if in edit mode -->
+                    <td mat-cell *matCellDef="let row; let rowIndex = index">
+                        <ng-container *ngIf="isEditMode; else viewMode">
+                            <div [formGroup]="getRowFormGroup(rowIndex)">
+                                <app-control-builder
+                                    [controlConfig]="getControl(column.key)"
+                                    [formGroup]="getRowFormGroup(rowIndex)"
+                                ></app-control-builder>
+                            </div>
+                        </ng-container>
+                        <ng-template #viewMode>
+                            {{ row[column.key] }}
+                        </ng-template>
+                    </td>
+                </ng-container>
 
-            <!-- Table Header and Rows -->
-            <tr mat-header-row *matHeaderRowDef="displayedColumnKeys"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumnKeys"></tr>
-        </table>
+                <!-- Table Header and Rows -->
+                <tr mat-header-row *matHeaderRowDef="displayedColumnKeys"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumnKeys"></tr>
+            </table>
 
-        <!-- Pagination Control -->
-        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-    </div>`,
+            <!-- Pagination Control -->
+            <mat-paginator #paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+        </div>
+    `,
     changeDetection: ChangeDetectionStrategy.Default,
 })
-export class SimpleTableControlComponent implements OnInit {
+export class SimpleTableControlComponent implements OnInit, AfterViewInit {
     @Input() controlConfig!: ControlConfig; // The table configuration
     @Input() formGroup!: FormGroup; // The form group passed in from the parent
 
@@ -50,11 +54,13 @@ export class SimpleTableControlComponent implements OnInit {
 
     displayedColumns: any[] = []; // Columns to be displayed
     displayedColumnKeys: string[] = []; // Column keys for template
-    dataSource: any[] = []; // Data source for the table
+    dataSource = new MatTableDataSource<any>(); // Data source for the table
     isEditMode = false; // Track edit mode
 
     // Store FormGroups for each row in view mode
     viewRowForms: { [key: number]: FormGroup } = {};
+
+    @ViewChild(MatPaginator) paginator!: MatPaginator;
 
     constructor(private fb: FormBuilder) {}
 
@@ -73,22 +79,26 @@ export class SimpleTableControlComponent implements OnInit {
         this.initializeTable();
 
         // Subscribe to viewControl valueChanges to repaint the grid when data changes
-        this.viewControl.valueChanges.subscribe((newValue) => {
+        this.viewControl.valueChanges.subscribe(() => {
             this.initializeTable();
         });
+    }
+
+    ngAfterViewInit(): void {
+        this.dataSource.paginator = this.paginator;
     }
 
     // Initialize the table data
     initializeTable(): void {
         // Update dataSource with the latest value from viewControl
-        this.dataSource = this.viewControl.value || [];
+        this.dataSource.data = this.viewControl.value || [];
 
         // Clear viewRowForms
         this.viewRowForms = {};
 
         // Construct FormGroups for each row in view mode
         if (!this.isEditMode) {
-            this.dataSource.forEach((row: any, rowIndex: number) => {
+            this.dataSource.data.forEach((row: any, rowIndex: number) => {
                 const rowFormGroup = this.fb.group({});
                 this.displayedColumns.forEach((col) => {
                     rowFormGroup.addControl(col.key, this.fb.control(row[col.key]));
@@ -129,7 +139,7 @@ export class SimpleTableControlComponent implements OnInit {
         this.formGroup.addControl(this.controlConfig.key + 'Edit', this.editFormArray);
 
         // Update dataSource for the table in edit mode
-        this.dataSource = viewData;
+        this.dataSource.data = viewData;
     }
 
     // Save the updated data back to the 'address' FormControl
@@ -139,7 +149,7 @@ export class SimpleTableControlComponent implements OnInit {
         this.viewControl.setValue(editedData);
 
         // Update dataSource for view mode
-        this.dataSource = editedData;
+        this.dataSource.data = editedData;
 
         // Re-initialize the table to rebuild viewRowForms
         this.initializeTable();

@@ -57,7 +57,7 @@ export class ConfigService {
 
     getData(): any {
         return this.http.get<PageConfig>(this.dataUrl).pipe(
-            tap((config) => (this.pageConfig = config)), // Store the loaded config
+            // tap((config) => (this.pageConfig = config)), // Store the loaded config
             catchError((error) => {
                 console.error('Error loading configuration:', error);
                 return of(null);
