@@ -25,6 +25,7 @@ export interface ControlConfig {
     defaultValue?: any;
     readOnly?: boolean;
     required?: boolean;
+    editableExpression: string;
     requiredTrue?: boolean; // Checkbox validation to be true
     categoryCode?: string; // For Select Control
     maxLength?: number;

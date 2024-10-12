@@ -62,7 +62,8 @@
                                     "minLength": 10,
                                     "maxLength": 50,
                                     "width": "one-third",
-                                    "displayOrder": "1"
+                                    "displayOrder": "1",
+                                    "editableExpression": "false"
                                 },
                                 {
                                     "key": "addressLineTwo",
@@ -71,7 +72,8 @@
                                     "minLength": 10,
                                     "maxLength": 50,
                                     "width": "one-third",
-                                    "displayOrder": "2"
+                                    "displayOrder": "2",
+                                    "editableExpression": "false"
                                 },
                                 {
                                     "key": "cityCode",
@@ -79,7 +81,8 @@
                                     "typeCode": "SELECT",
                                     "categoryCode": "CITY_CODE",
                                     "width": "one-third",
-                                    "displayOrder": "3"
+                                    "displayOrder": "3",
+                                    "editableExpression": "true"
                                 },
                                 {
                                     "key": "countryCode",
@@ -88,7 +91,8 @@
                                     "categoryCode": "COUNTRY_CODE",
                                     "maxLength": 100,
                                     "width": "full-width",
-                                    "displayOrder": "3"
+                                    "displayOrder": "3",
+                                    "editableExpression": "true"
                                 }
                             ]
                         },

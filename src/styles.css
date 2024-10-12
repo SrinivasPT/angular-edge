@@ -31,6 +31,11 @@
     grid-column: span 2; /* One-fifth row span */
 }
 
+/*Table*/
+td mat-form-field mat-label {
+    display: none;
+}
+
 /* Updated styling for fieldset */
 fieldset {
     border: 2px solid #2f3031; /* Thicker border with a color for better visibility */

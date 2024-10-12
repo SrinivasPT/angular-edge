@@ -3,6 +3,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ControlConfig } from '../core/models';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import { evaluateExpression, getRootFormGroup } from '@edge/shared';
 
 @Component({
     selector: 'app-simple-table-control',
@@ -21,7 +22,7 @@ import { MatPaginator } from '@angular/material/paginator';
 
                     <!-- Cell Definition: Render input field if in edit mode -->
                     <td mat-cell *matCellDef="let row; let rowIndex = index">
-                        <ng-container *ngIf="isEditMode; else viewMode">
+                        <ng-container *ngIf="isColumnEditable(rowIndex, column); else viewMode">
                             <div [formGroup]="getRowFormGroup(rowIndex)">
                                 <app-control-builder
                                     [controlConfig]="getControl(column.key)"
@@ -170,5 +171,15 @@ export class TableControlComponent implements OnInit, AfterViewInit {
     // Get the ControlConfig for a specific column
     getControl(key: string): ControlConfig {
         return this.displayedColumns.find((column) => column.key === key) as ControlConfig;
+    }
+
+    isColumnEditable(rowIndex: number, column: any): boolean {
+        if (!this.isEditMode) return false;
+        if (!column.editableExpression) return true;
+
+        const rootFormGroup = getRootFormGroup(this.formGroup);
+        const formValues = rootFormGroup.getRawValue();
+
+        return evaluateExpression(column.editableExpression, formValues);
     }
 }
